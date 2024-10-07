@@ -1,0 +1,18 @@
+root = "./"
+thread = 8
+logger = nil
+harbor = 0
+start = "main_gs"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+luaservice_gs = root .. "node/gs/service/?/?.lua;"
+luaservice = root.."service/?.lua;"..root.."skynet/service/?.lua;"..root.."skynet/test/?.lua;"..root.."skynet/examples/?.lua;"..root.."service_logic/?.lua;"..root.."node/?.lua;"..luaservice_gs
+lualoader =root .. "skynet/lualib/loader.lua"
+snax = root.."skynet/examples/?.lua;"..root.."skynet/test/?.lua;"
+cpath = root.."skynet/cservice/?.so"
+-- daemon = "./skynet.pid"
+lualib_gs = root .. "node/gs/lualib/?.lua;"
+lualib= lualib_gs..root.."lualib/common/?.lua;"
+
+lua_path = root .. "lualib/?.lua;" .. root .. "skynet/lualib/?.lua;" .. root .. "skynet/lualib/?/init.lua;" .. root .."skynet/examples/?.lua"
+lua_cpath = root .. "luaclib/?.so;" .. root .. "skynet/luaclib/?.so;"
+
