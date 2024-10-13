@@ -1,17 +1,24 @@
+local logger = require "logger"
 local skynet = require "skynet"
 require "skynet.manager"
 
 
 local function initPackagePath()
 	package.path = package.path .. ";app/gs/?.lua"
-	print("packagePath:", package.path)
+	logger.logInfo("gs packagePath:", package.path)
+end
+
+local function initLogger()
+	logger.init("gs.log")
+end
+
+local function init()
+	initLogger()
+	initPackagePath()
 end
 
 local function start_gs()
-
-	initPackagePath()
-
-	skynet.error("Server start")
+	logger.logInfo("Server start")
 	skynet.uniqueservice("protoloader")
 	if not skynet.getenv "daemon" then
 		local console = skynet.newservice("console")
@@ -24,11 +31,12 @@ local function start_gs()
 		maxclient = max_client,
 		nodelay = true,
 	})
-	skynet.error("Watchdog listen on " .. addr .. ":" .. port)
+	logger.logInfo("Watchdog listen on " .. addr .. ":" .. port)
 end
 
 skynet.start(function()
-	print("Main Server start")
+	init()
+	logger.logInfo("Main Server start")
 	local mongoService = skynet.newservice(
 		"mongodb_service", "127.0.0.1", 27017, "testdb", "test", "test"
 	)
